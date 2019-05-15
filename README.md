@@ -2,11 +2,13 @@
 
 This is simple tool to view the 3D models of Time Commando.
 
-It is based on LBA2 model viewer develop in lba2remake.net
+It is based on LBA2 model viewer develop in https://lba2remake.net/#editor=true (https://github.com/agrande/lba2remake) project
 
 ## How to use
 
 * Install NodeJS: https://nodejs.org/en/
+
+* Go to directory you have downloaded this project
 * Create a folder with name "data" inside the "www" directory.
 * Copy all game files to the data folder
 * On the command line do:

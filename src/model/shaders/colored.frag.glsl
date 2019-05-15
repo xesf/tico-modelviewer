@@ -8,9 +8,9 @@ in vec3 vMVPos;
 
 out vec4 fragColor;
 
-#require "../../island/shaders/common/fog.frag"
-#require "../../island/shaders/common/dither.frag"
-#require "../../island/shaders/common/intensity.frag"
+#require "./common/fog.frag"
+#require "./common/dither.frag"
+#require "./common/intensity.frag"
 
 void main() {
     fragColor = vec4(fog(dither(vColor, intensity()).rgb), 1.0);

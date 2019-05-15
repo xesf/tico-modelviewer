@@ -10,9 +10,9 @@ in vec3 vMVPos;
 
 out vec4 fragColor;
 
-#require "../../island/shaders/common/fog.frag"
-#require "../../island/shaders/common/lut.frag"
-#require "../../island/shaders/common/intensity.frag"
+#require "./common/fog.frag"
+#require "./common/lut.frag"
+#require "./common/intensity.frag"
 
 void main() {
     vec2 uv = vUv / (vUvGroup.zw + 1.0);
