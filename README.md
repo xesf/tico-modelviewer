@@ -14,6 +14,7 @@ It is based on LBA2 model viewer develop in https://lba2remake.net/#editor=true 
 * On the command line do:
     * npm install
     * npm run start
+* Go to the browser and type url http://localhost:9090
 
 ## VR
 
