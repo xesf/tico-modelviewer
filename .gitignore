@@ -1,0 +1,9 @@
+node_modules
+/.idea
+/apps/win10/bin
+/apps/win10/obj
+/www/data
+/crash_report.json
+/dist
+/yarn.lock
+.DS_Store
