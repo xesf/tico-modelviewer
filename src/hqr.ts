@@ -57,6 +57,10 @@ export default class HQR {
         return this.entries.length;
     }
 
+    getEntrySize(index: number) {
+        return this.entries[index].compressedSize;
+    }
+
     getEntry(index: number) {
         const entry = this.entries[index];
         if (entry.type) {
@@ -94,16 +98,16 @@ export default class HQR {
             }
             return tgt_buffer;
         }
-        if (entry.hasHiddenEntry) {
-            const tgt_buffer = new ArrayBuffer(entry.originalSize);
-            const source = new Uint8Array(this.buffer, entry.offset, entry.compressedSize);
-            const target = new Uint8Array(tgt_buffer);
-            // entries that have hidden entries are marked with 1 at the start,
-            // making the file to be faulty
-            source[0] = 0;
-            target.set(source);
-            return tgt_buffer;
-        }
+        // if (entry.hasHiddenEntry) {
+        //     const tgt_buffer = new ArrayBuffer(entry.originalSize);
+        //     const source = new Uint8Array(this.buffer, entry.offset, entry.compressedSize);
+        //     const target = new Uint8Array(tgt_buffer);
+        //     // entries that have hidden entries are marked with 1 at the start,
+        //     // making the file to be faulty
+        //     source[0] = 0;
+        //     target.set(source);
+        //     return tgt_buffer;
+        // }
         return this.buffer.slice(entry.offset, entry.offset + entry.compressedSize);
     }
 

@@ -7,10 +7,11 @@ let entities = [];
 
 async function loadEntities() {
     loading = true;
-    const ress = await loadHqr('RESS.HQR');
+    const ress = await loadHqr('STAGE00/RUN0/SCENE.HQR');
     await loadModelsMetaData();
-    const entityInfo = ress.getEntry(44);
-    entities = loadEntity(entityInfo);
+    const entityInfo = ress.getEntry(1);
+    const entityInfoSize = ress.getEntrySize(1);
+    entities = loadEntity(entityInfo, entityInfoSize);
     loading = false;
 }
 

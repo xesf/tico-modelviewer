@@ -27,14 +27,15 @@ export async function loadModel(params: any,
                           animState: any,
                           envInfo: any,
                           ambience: any) {
-    const [ress, body, anim, anim3ds, lutTexture] = await Promise.all([
+    const [ress, body, anim, anim3ds, lutTexture, scene] = await Promise.all([
         loadHqr('RESS.HQR'),
         loadHqr('BODY.HQR'),
         loadHqr('ANIM.HQR'),
         loadHqr('ANIM3DS.HQR'),
-        loadLUTTexture()
+        loadLUTTexture(),
+        loadHqr('STAGE04/RUN0/SCENE.HQR'),
     ]);
-    const files = {ress, body, anim, anim3ds};
+    const files = {ress, body, anim, anim3ds, scene};
     return loadModelData(
         params,
         files,
@@ -68,6 +69,21 @@ function loadModelData(params: any,
     const palette = new Uint8Array(files.ress.getEntry(0));
     const entityInfo = files.ress.getEntry(44);
     const entities = loadEntity(entityInfo);
+
+    // const palette = new Uint8Array(files.ressourc.getEntry(5));
+    const entityInfoTC = files.scene.getEntry(1);
+    const entityInfoSizeTC = files.scene.getEntrySize(1);
+    const entitiesTC = loadEntity(entityInfoTC, entityInfoSizeTC);
+    console.log(entitiesTC);
+
+    // for (let e = 0; e < 114; e += 1) {
+    //     try {
+    //         const info = files.ressourc.getEntry(e);
+    //         const size = files.ressourc.getEntrySize(e);
+    //         const ent = loadEntity(info, size);
+    //         console.log(`${e}:`, ent);
+    //     } catch {}
+    // }
 
     const model = {
         palette,

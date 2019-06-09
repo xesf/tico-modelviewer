@@ -95,19 +95,38 @@ const ACTIONTYPE = {
 };
 /* eslint-enable key-spacing */
 
-const entities = [];
+// const entities = [];
 
-export function loadEntity(buffer: ArrayBuffer) {
+export function loadEntity(buffer: ArrayBuffer, size = null) {
+    const entities = [];
     if (entities.length === 0) {
-        const data = new DataView(buffer);
-        const offset = data.getUint32(0, true);
-        const numEntries = (offset / 4) - 1;
         const offsets = [];
-        for (let i = 0; i < numEntries; i += 1) {
-            offsets.push(data.getUint32(i * 4, true));
+        let numEntries = 0;
+        const data = new DataView(buffer);
+        if (!size) {
+            const offset = data.getUint32(0, true);
+            numEntries = (offset / 4) - 1;
+            for (let i = 0; i < numEntries; i += 1) {
+                offsets.push(data.getUint32(i * 4, true));
+            }
+        } else {
+            let offset = 0;
+            while (true) {
+                const dataOffset = data.getUint32(offset, true);
+                if (dataOffset >= size) {
+                    break;
+                }
+                offset += 4;
+                numEntries += 1;
+                offsets.push(dataOffset);
+            }
         }
         for (let i = 0; i < numEntries; i += 1) {
             const entity = loadEntityEntry(buffer, offsets[i], i);
+            if (entity.anims.length === 0 &&
+                entity.bodies.length === 0) {
+                    continue;
+                }
             entities.push(entity);
         }
     }
